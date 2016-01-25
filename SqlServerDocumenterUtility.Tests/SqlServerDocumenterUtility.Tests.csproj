@@ -34,7 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +97,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ColumnDalTests.cs" />
+    <Compile Include="Data\ExtendedPropertyDalTests.cs" />
+    <Compile Include="Data\Mappers\ColumnMapperTests.cs" />
+    <Compile Include="Data\Mappers\TableMapperTests.cs" />
+    <Compile Include="Data\Mappers\ExtendedPropertyMapperTests.cs" />
+    <Compile Include="Data\TableDalTests.cs" />
     <Compile Include="Models\HttpAssertTests.cs" />
     <Compile Include="Models\HttpRequiresTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +115,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SqlServerDocumenterUtility.Data\SqlServerDocumenterUtility.Data.csproj">
+      <Project>{4a6b383b-2daa-4b25-ad38-8621cb58c787}</Project>
+      <Name>SqlServerDocumenterUtility.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SqlServerDocumenterUtility.Models\SqlServerDocumenterUtility.Models.csproj">
       <Project>{ed80b57b-bf19-4cd9-94c2-5a6ba60d1045}</Project>
       <Name>SqlServerDocumenterUtility.Models</Name>

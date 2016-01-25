@@ -46,6 +46,7 @@
     <Compile Include="Dals\IColumnDal.cs" />
     <Compile Include="Dals\IExtendedPropertyDal.cs" />
     <Compile Include="Dals\ITableDal.cs" />
+    <Compile Include="IDalHelper.cs" />
     <Compile Include="Mappers\ColumnMapper.cs" />
     <Compile Include="Mappers\ExtendedPropertyModelMapper.cs" />
     <Compile Include="Mappers\IColumnMapper.cs" />

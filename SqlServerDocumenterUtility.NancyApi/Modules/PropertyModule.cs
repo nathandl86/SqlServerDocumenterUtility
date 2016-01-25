@@ -32,21 +32,21 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
             Get["/get/{tableId}"] = parameters => GetProperties(parameters.tableId);
             Post["/"] = _ => HttpStatusCode.MethodNotAllowed;
 
-            Post["/delete"] = parameters =>
+            Post["/delete"] = _ =>
             {
                 var property = this.Bind<ExtendedPropertyModel>();
                 Remove(property);
                 return HttpStatusCode.OK;
             };
 
-            Post["/add"] = parameters =>
+            Post["/add"] = _ =>
             {
                 var property = this.Bind<ExtendedPropertyModel>();
                 Add(property);
                 return HttpStatusCode.OK;
             };
 
-            Post["/update"] = parameters =>
+            Post["/update"] = _ =>
             {
                 var property = this.Bind<ExtendedPropertyModel>();
                 Update(property);

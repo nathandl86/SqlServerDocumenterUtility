@@ -11,14 +11,14 @@ namespace SqlServerDocumenterUtility.Data
     /// creating new Dal class allowing easy reuse and preventing largs amounts
     /// of code doing very similar things.
     /// </summary>
-    public static class DalHelper
+    public class DalHelper : IDalHelper
     {
         /// <summary>
         /// Method to handle inserts
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>Nullable Int indicating the number of affected rows</returns>
-        public static int? Insert(DalHelperModel dto)
+        public int? Insert(DalHelperModel dto)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace SqlServerDocumenterUtility.Data
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>Boolean indicating success or failure of the update operation</returns>
-        public static bool Update(DalHelperModel dto)
+        public bool Update(DalHelperModel dto)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace SqlServerDocumenterUtility.Data
         /// Method handling deletion of a row.
         /// </summary>
         /// <param name="dto"></param>
-        public static void Delete(DalHelperModel dto)
+        public void Delete(DalHelperModel dto)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace SqlServerDocumenterUtility.Data
         ///     used to convert the sql data records to the list
         /// </param>
         /// <returns></returns>
-        public static IList<T> RetrieveList<T>(DalHelperModel<T> dto)
+        public IList<T> RetrieveList<T>(DalHelperModel<T> dto)
         {
             var items = new List<T>();
             try
@@ -178,7 +178,7 @@ namespace SqlServerDocumenterUtility.Data
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>SqlCommand with a configured command type</returns>
-        private static SqlCommand BuildCommand(DalHelperModel dto)
+        private SqlCommand BuildCommand(DalHelperModel dto)
         {
             if (!String.IsNullOrWhiteSpace(dto.CommandText))
             {

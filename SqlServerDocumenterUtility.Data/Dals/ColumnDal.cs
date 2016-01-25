@@ -21,6 +21,13 @@ namespace SqlServerDocumenterUtility.Data.Dals
             set { _columnMapper = value; }
         }
 
+        private IDalHelper _dalHelper;
+        internal IDalHelper DalHelper
+        {
+            private get { return _dalHelper ?? (_dalHelper = new DalHelper()); }
+            set { _dalHelper = value; }
+        }
+
         #endregion
 
         #region Sql command templates

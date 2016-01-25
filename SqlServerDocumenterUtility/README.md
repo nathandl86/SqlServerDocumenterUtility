@@ -118,7 +118,7 @@ MSBuild from "completing".
 ### What's Left to Do?
 There are a couple things missing that hopefully I'll circle back to that have this feeling a incomplete:
 
-1. Unit Testing - This is the first priority!
+1. Unit Testing - Still need coverage of Web API, Nancy, & JS
 2. IOC Implemenation - Right now I'm using a manually method of dependency injection I've has success with before, but 
     would like to put in place a framework for it
 3. [Content Negotiation](https://github.com/NancyFx/Nancy/wiki/Content-Negotiation) for Nancy
