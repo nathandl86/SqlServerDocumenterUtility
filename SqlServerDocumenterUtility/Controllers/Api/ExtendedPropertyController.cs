@@ -1,7 +1,8 @@
-﻿using SqlServerDocumenterUtility.Code;
+﻿
 using SqlServerDocumenterUtility.Data.Dals;
-using SqlServerDocumenterUtility.Exceptions;
 using SqlServerDocumenterUtility.Models;
+using SqlServerDocumenterUtility.Models.Exceptions;
+using SqlServerDocumenterUtility.Models.Validation;
 using System;
 using System.Linq;
 using System.Transactions;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SqlServerDocumenterUtility.NancyApi.Code
+namespace SqlServerDocumenterUtility.Models.Validation
 {
     /// <summary>
     /// Class containing helper methods to validate request values before
@@ -17,8 +17,8 @@ namespace SqlServerDocumenterUtility.NancyApi.Code
         /// <param name="msg">Message to be thrown in the ArgumentException on failure</param>
         public static void IsNotNull<T>(T val, string msg)
         {
-            if ((typeof(T) == typeof(string) && String.IsNullOrWhiteSpace(val.ToString()))
-                && val == null)
+            if ((typeof(T) == typeof(string) && (val == null || String.IsNullOrWhiteSpace(val.ToString())))
+                || val == null)
             {
                 throw new ArgumentException(msg);
             }

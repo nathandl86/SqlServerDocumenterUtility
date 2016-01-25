@@ -2,10 +2,10 @@
 using Nancy.ModelBinding;
 using SqlServerDocumenterUtility.Data.Dals;
 using SqlServerDocumenterUtility.Models;
-using SqlServerDocumenterUtility.NancyApi.Code;
 using System.Collections.Generic;
 using System.Transactions;
 using System.Linq;
+using SqlServerDocumenterUtility.Models.Validation;
 
 namespace SqlServerDocumenterUtility.NancyApi.Modules
 {

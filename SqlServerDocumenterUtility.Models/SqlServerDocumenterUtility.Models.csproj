@@ -44,9 +44,12 @@
     <Compile Include="DalHelperModel.cs" />
     <Compile Include="DalResponseModel.cs" />
     <Compile Include="DatabaseModel.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="ExtendedPropertyModel.cs" />
     <Compile Include="TableModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\HttpAssert.cs" />
+    <Compile Include="Validation\HttpRequires.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

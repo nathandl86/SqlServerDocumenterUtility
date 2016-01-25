@@ -2,7 +2,7 @@
 using Nancy;
 using SqlServerDocumenterUtility.Data.Dals;
 using SqlServerDocumenterUtility.Models;
-using SqlServerDocumenterUtility.NancyApi.Code;
+using SqlServerDocumenterUtility.Models.Validation;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;

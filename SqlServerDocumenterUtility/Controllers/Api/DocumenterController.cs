@@ -5,9 +5,9 @@ using System.Web.Http;
 using System.Web.SessionState;
 using Mvc = System.Web.Mvc;
 using SqlServerDocumenterUtility.Data.Dals;
-using SqlServerDocumenterUtility.Code;
 using SqlServerDocumenterUtility.Models;
 using System.Linq;
+using SqlServerDocumenterUtility.Models.Validation;
 
 namespace SqlServerDocumenterUtility.Controllers.Api
 {

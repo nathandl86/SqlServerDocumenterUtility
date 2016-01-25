@@ -157,11 +157,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Code\ConfigHelper.cs" />
-    <Compile Include="Code\WebApiControllerExtensions.cs" />
     <Compile Include="Controllers\Api\DocumenterController.cs" />
     <Compile Include="Controllers\Api\ExtendedPropertyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

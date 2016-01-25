@@ -35,6 +35,10 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -91,8 +95,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\HttpAssertTests.cs" />
+    <Compile Include="Models\HttpRequiresTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Web\Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -101,10 +107,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SqlServerDocumenterUtility.Models\SqlServerDocumenterUtility.Models.csproj">
+      <Project>{ed80b57b-bf19-4cd9-94c2-5a6ba60d1045}</Project>
+      <Name>SqlServerDocumenterUtility.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlServerDocumenterUtility.NancyApi\SqlServerDocumenterUtility.NancyApi.csproj">
+      <Project>{887a8565-4a10-44c8-82ef-f2f2d1d2bfbf}</Project>
+      <Name>SqlServerDocumenterUtility.NancyApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SqlServerDocumenterUtility\SqlServerDocumenterUtility.csproj">
       <Project>{ADB07591-914E-48E8-938C-5C9C35460E69}</Project>
       <Name>SqlServerDocumenterUtility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Nancy\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

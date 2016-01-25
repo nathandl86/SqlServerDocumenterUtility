@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SqlServerDocumenterUtility.Controllers
@@ -45,12 +46,12 @@ namespace SqlServerDocumenterUtility.Controllers
         /// <returns></returns>
         public ActionResult Readme()
         {
-            Response.AddHeader("Content-Disposition", new System.Net.Mime.ContentDisposition
+            HttpContext.Response.AddHeader("Content-Disposition", new System.Net.Mime.ContentDisposition
             {
                 Inline = true,
                 FileName = "README.html"
             }.ToString());
-            return File(Server.MapPath("/") + "README.html", "text/plain");
+            return File("~/README.html", "text/plain");
         }
     }
 }

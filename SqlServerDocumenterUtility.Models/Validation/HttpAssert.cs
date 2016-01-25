@@ -1,7 +1,7 @@
-﻿using SqlServerDocumenterUtility.Models;
-using SqlServerDocumenterUtility.NancyApi.Exceptions;
+﻿
+using SqlServerDocumenterUtility.Models.Exceptions;
 
-namespace SqlServerDocumenterUtility.NancyApi.Code
+namespace SqlServerDocumenterUtility.Models.Validation
 {
     /// <summary>
     /// Class containing helper methods for validating data layer responses
