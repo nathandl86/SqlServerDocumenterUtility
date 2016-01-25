@@ -149,7 +149,9 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -166,12 +168,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\sample.mdf" />
-    <Content Include="App_Data\sample2.mdf" />
-    <Content Include="App_Data\sample2_log.ldf">
+    <Content Include="Databases\sample.mdf" />
+    <Content Include="Databases\sample2.mdf" />
+    <Content Include="Databases\sample2_log.ldf">
       <DependentUpon>sample2.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\sample_log.ldf">
+    <Content Include="Databases\sample_log.ldf">
       <DependentUpon>sample.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />

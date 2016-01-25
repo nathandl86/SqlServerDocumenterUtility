@@ -64,7 +64,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
                     var connectionString = connection.ConnectionString;
                     if (connectionString.Contains("|DataDirectory|"))
                     {
-                        connectionString = connectionString.Replace("|DataDirectory|", System.Web.HttpContext.Current.Server.MapPath("\\App_Data"));
+                        connectionString = connectionString.Replace("|DataDirectory|", System.Web.HttpContext.Current.Server.MapPath("\\Databases"));
                     }
 
                     connections.Add(new DatabaseModel {

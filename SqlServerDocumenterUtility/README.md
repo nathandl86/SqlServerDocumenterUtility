@@ -25,17 +25,19 @@ off point for some experimentation. Some of the technologies/libraries/framework
 
 ### Configuration of Database Connections
 
-Within the web application's App_Data directory are 2 small .mdf files which are wired up
-with connection strings in the web.config. 
+Within the web application's Database directory are 2 small .mdf files. In the web.configthe connection strings in the web.config
+are configured like so:
 ```
 <add name="Sample 1" connectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\sample.mdf;Integrated Security=True;Connect Timeout=30"/>
 
 <add name="Sample 2" connectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\sample2.mdf;Integrated Security=True;Connect Timeout=30"/>
 ```
 
-The mdf's are being attached to directly. Within the 2 databases are a extremely small sampling of tables. Additional connection strings **should**
-be able to be added by simply adding them to the connectionStrings section. I say should because I've, as of yet, been unable to just drop in an
-actual Sql Server database server's connection string to see what happens. 
+The connection string is setup to attempt to connect automatically to the mdf's, but there is one snag. The `|DataDirectory|` section 
+tells ASP.NET to look for the database in App_Data. They are in the Database folder because the App_Data folder doesn't want to commit, but that's
+okay, because we have to alter the connection anyway for Nancy. Within the 2 databases are a extremely small sampling of tables. 
+Additional connection strings **should** be able to be added by simply adding them to the connectionStrings section. I say should 
+because I've, as of yet, been unable to just drop in an actual Sql Server database server's connection string to see what happens. 
 
 In the next section I will go over what needs to be done in order for the connection to be setup to optionally use the Nancy API.
 
@@ -48,16 +50,17 @@ projects. When getting a list of the connnections, when connection names match b
 of the Nancy API will appear when that connection is selected from the dropdown. Below is the connection string setting up the 
 "Sample 1" connection for Nancy `<add name="Sample 1" connectionString=""/>`
 
-Because, I wanted to put the .mdf's in the App_Data folder of the web app, it presented some very unique challenges when the 
+Circling back to the reason for the mdf's being in a Databases folder instead of App_Data: Because, I wanted to put the .mdf's 
+in a web project folder, it presented some very unique challenges when the 
 connection string from the web app is passed to the Nancy API. For local files the AttachDbFilename value looks like
 `|DataDirectory|\sample.mdf`. The DataDirectory portion tells ASP.NET to look in App_Data directory. Trying to use that connection
 in the NancyApi project, resulted in it looking in the NancyApi project's App_Data. To work around this, in the Web API 
-Documenter controller, when returning the connections, I am replacing `|DataDirectory|` with a mapped server path to the .mdf's.
+DocumenterController, when returning the connections I am replacing `|DataDirectory|` with a mapped server path to the .mdf's.
 ```
 var connectionString = connection.ConnectionString;
 if (connectionString.Contains("|DataDirectory|"))
 {
-    connectionString = connectionString.Replace("|DataDirectory|", System.Web.HttpContext.Current.Server.MapPath("\\App_Data"));
+    connectionString = connectionString.Replace("|DataDirectory|", System.Web.HttpContext.Current.Server.MapPath("\\Databases"));
 }
 ```
 It works well and the transformation only occurs for connections that are attached files.
