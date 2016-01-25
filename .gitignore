@@ -207,3 +207,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/SqlServerDocumenterUtility/dist/vendor.min.css
+/SqlServerDocumenterUtility/dist/templates.js
+/SqlServerDocumenterUtility/dist/all.min.js
+/SqlServerDocumenterUtility/dist/all.min.css
+/SqlServerDocumenterUtility/dist/all.js
