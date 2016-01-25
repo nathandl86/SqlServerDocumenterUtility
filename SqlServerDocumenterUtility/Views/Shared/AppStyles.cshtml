@@ -1,0 +1,12 @@
+﻿
+@if(ConfigHelper.Optimize() == "true"){
+    <link rel="stylesheet" href="~/dist/vendor.min.css" />
+    <link rel="stylesheet" href="~/dist/all.min.css" />
+}
+else{
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/ng-table.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+}
+

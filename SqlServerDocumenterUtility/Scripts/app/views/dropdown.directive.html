@@ -1,0 +1,12 @@
+﻿
+<div class="btn-group custom-dropdown" uib-dropdown is-open="drop.isOpen()" data-ng-title="drop.getSelectedText()"  keyboard-nav>
+    <button type="button" class="btn btn-dropdown clearfix {{drop.cssClass}}" uib-dropdown-toggle data-ng-disabled="drop.isDisabled()">
+        <span class="btn-text">{{ drop.getSelectedText() }} &nbsp;</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li data-ng-repeat="item in drop.items" role="menuitem">
+            <a href="#" data-ng-click="drop.select($event, item)">{{drop.getText(item)}}</a>
+        </li>
+    </ul>
+</div>

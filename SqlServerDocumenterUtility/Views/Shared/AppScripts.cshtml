@@ -1,0 +1,49 @@
+﻿
+@if(ConfigHelper.Optimize() == "true"){
+
+    <script src="~/Scripts/vendor/lodash-4.0.0/lodash.min.js"></script>
+    <script src="~/Scripts/vendor/jquery-1.10.2/jquery.min.js"></script>
+    <script src="~/Scripts/vendor/bootstrap-3.0.0/bootstrap.min.js"></script>
+    <script src="~/Scripts/vendor/angular-1.4.8/angular.min.js"></script>
+    <script src="~/Scripts/vendor/angular-ui-bootstrap-1.0.3/ui-bootstrap.min.js"></script>
+    <script src="~/Scripts/vendor/toastr/toastr.min.js"></script>
+    <script src="~/Scripts/vendor/ng-table-1.0.0/ng-table.min.js"></script>
+
+    <script src="~/dist/all.min.js"></script>
+    <script src="~/dist/templates.js"></script>
+}
+else{
+    <!-- Vendor -->
+    <script src="~/Scripts/vendor/lodash-4.0.0/lodash.js"></script>
+    <script src="~/Scripts/vendor/jquery-1.10.2/jquery.js"></script>
+    <script src="~/Scripts/vendor/bootstrap-3.0.0/bootstrap.js"></script>
+    <script src="~/Scripts/vendor/angular-1.4.8/angular.js"></script>
+    <script src="~/Scripts/vendor/angular-ui-bootstrap-1.0.3/ui-bootstrap.js"></script>
+    <script src="~/Scripts/vendor/toastr/toastr.js"></script>
+    <script src="~/Scripts/vendor/ng-table-1.0.0/ng-table.js"></script>
+
+    <!-- App -->
+    <script src="~/Scripts/SectionLoader.js"></script>
+    <script src="~/Scripts/ScrollTop.js"></script>
+    <script src="~/Scripts/PropertySuggestions.js"></script>
+    <script src="~/Scripts/PropertyModel.js"></script>
+
+    <!-- Angular-->
+    <script src="~/Scripts/app/app.js"></script>
+    <script src="~/Scripts/app/init.js"></script>
+    <script src="~/Scripts/app/controllers/documenterPage.controller.js"></script>
+    <script src="~/Scripts/app/controllers/documenter.controller.js"></script>
+    <script src="~/Scripts/app/controllers/dropdown.controller.js"></script>
+    <script src="~/Scripts/app/controllers/propertyForm.controller.js"></script>
+    <script src="~/Scripts/app/directives/documenter.directive.js"></script>
+    <script src="~/Scripts/app/directives/dropdown.directive.js"></script>
+    <script src="~/Scripts/app/directives/propertyForm.directive.js"></script>
+    <script src="~/Scripts/app/services/common.service.js"></script>
+    <script src="~/Scripts/app/services/documenter.service.js"></script>
+    <script src="~/Scripts/app/services/extendedProperty.service.js"></script>
+    <script src="~/Scripts/app/services/propertySuggestions.service.js"></script>
+    <script src="~/Scripts/app/services/notification.service.js"></script>
+    <script src="~/Scripts/app/services/logger.service.js"></script>
+    <script src="~/Scripts/app/services/propertyModelBuilder.service.js"></script>
+    <script src="~/Scripts/app/services/nancyApi.service.js"></script>
+}

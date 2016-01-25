@@ -1,0 +1,83 @@
+﻿
+<div class="main-form">
+    <div class="container body-content" data-ng-hide="documenter.isTableValid()">
+        <div class="section-body no-table-selected">
+            <p>Please select a database and table</p>
+        </div>
+    </div>
+    <div class="container body-content" data-ng-show="documenter.isTableValid()">
+        <div class="section-header">
+            Table - {{ documenter.getTableText() }}
+        </div>
+        <div class="section-body">
+            <div data-property-form=""
+                 data-object-id="{{documenter.table.tableId}}"
+                 data-property="{{documenter.selectedTableProperty}}"
+                 data-type="Table"
+                 data-saved="documenter.savedTableProperty"
+                 class="col-sm-4"></div>
+            <div class="col-sm-8">
+                <table data-ng-table="documenter.tableParams" class="table table-condensed table-bordered table-striped">
+                    <colgroup>
+                        <col style="width: 20%;" />
+                        <col style="width: inherit" />
+                        <col style="width: 100px;" />
+                    </colgroup>
+                    <tr data-ng-repeat="row in $data">
+                        <td data-title="'Name'" filter="{vame: 'text'}" sortable="'name'">{{row.name}}</td>
+                        <td data-title="'Value'" filter="{text: 'text'}" sortable="'text'">{{row.text}}</td>
+                        <td>
+                            <button class="btn btn-default btn-sm" ng-click="documenter.editTableProperty(row)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button class="btn btn-danger btn-sm" ng-click="documenter.removeTableProperty(row)">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" data-ng-show="documenter.columns.length > 0">
+        <div class="section-header">
+            Columns
+            <span class="badge">{{ documenter.columns.length}}</span>
+        </div>
+        <div class="section-body">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <custom-dropdown data-items="documenter.dropdownColumns"
+                                     data-selected="documenter.column"
+                                     data-text-caption="-- Select Column --"
+                                     data-text-path="columnName"></custom-dropdown>
+                </div>
+                <div data-property-form=""
+                     data-object-id="{{documenter.column.columnId}}"
+                     data-property="{{documenter.selectedColumnProperty}}"
+                     data-type="Column"
+                     data-saved="documenter.savedColumnProperty"></div>
+            </div>
+            <div class="col-sm-8">
+                <table data-ng-table="documenter.columnParams" class="table table-condensed table-bordered table-striped">
+                    <colgroup>
+                        <col style="width: 18%;" />
+                        <col style="width: 18%;" />
+                        <col style="width: inherit;" />
+                        <col style="width: 100px;" />
+                    </colgroup>
+                    <tr data-ng-repeat="row in $data">
+                        <td data-title="'ColumnName'" filter="{ColumnName: 'text'}" sortable="'columnName'">{{row.columnName}}</td>
+                        <td data-title="'Name'" filter="{name: 'text'}" sortable="'name'">{{row.name}}</td>
+                        <td data-title="'Value'" filter="{text: 'text'}" sortable="'text'">{{row.text}}</td>
+                        <td>
+                            <button class="btn btn-default btn-sm" ng-click="documenter.editColumnProperty(row)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button class="btn btn-danger btn-sm" ng-click="documenter.removeColumnProperty(row)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="clear: both;"></span>
+</div>

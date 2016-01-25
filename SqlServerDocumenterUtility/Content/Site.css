@@ -1,0 +1,199 @@
+﻿body {
+    padding-top: 50px;
+    background-color: #f5f5f5;
+}
+
+footer {
+    background-color: #222;
+    border-top: solid 1px #080808;
+    color: #999;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: 11px;
+    position: absolute;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+    footer p {
+        font-style: italic;
+        font-size: 10px;
+    }
+
+.page-section {
+    padding-top: 10px;
+    padding-bottom: 8px;
+    border-bottom: solid 1px #e5e5e5;
+}
+
+    .page-section .section-header {
+        font-size: 25px;
+        background-color: #505050;
+        color: #F5F5F5;
+        padding: 10px;
+        border-bottom: solid 1px #909090;
+        box-shadow: 4px 4px 8px #909090;
+        margin-bottom: 10px;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+        .page-section .section-header a {
+            color: #999;
+            float: right;
+            margin-right: 5px;
+            font-size: 15px;
+            margin-top: 8px;
+            padding-left: 10px;
+        }
+
+            .page-section .section-header a:hover,
+            .page-section .section-header a:focus {
+                color: #FFF;
+                text-decoration: none;
+            }
+
+        .page-section .section-header .badge {
+            float: right;
+            vertical-align: middle;
+            margin-right: 5px;
+            margin-top: 8px;
+            padding-left: 10px;
+        }
+
+    .page-section .section-body {
+        margin: 15px 0;
+    }
+
+    .page-section .no-table-selected {
+        height: 100px;
+        text-align: center;
+    }
+
+        .page-section .no-table-selected p {
+            margin-top: 50px;
+            color: #505050;
+            font-size: 2em;
+        }
+
+    .page-section .lbl-med {
+        width: 100px;
+        display: inline-block;
+    }
+
+    .page-section .lbl-sm {
+        width: 80px;
+        display: inline-block;
+    }
+
+    /* Set padding to keep content from hitting the edges */
+    .page-section .body-content {
+        padding: 15px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        background-color: #FFF;
+        border-radius: 4px;
+        box-shadow: 0 10px 20px #a5a5a5;
+    }
+
+.row .checkbox {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.section-body form {
+    margin-left: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.typeahead-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.custom-input-container {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.custom-input-small {
+    width: 120px;
+}
+
+.custom-input-medium {
+    width: 180px;
+}
+
+.custom-input-wide {
+    width: 220px;
+}
+
+.custom-dropdown .btn-text {
+    float: left;
+    text-overflow: ellipsis;
+}
+
+.custom-dropdown .caret {
+    float: right;
+    right: 4px;
+    margin-top: 8px;
+}
+
+.ng-cloak {
+    display: none;
+}
+
+.scroll-top {
+    color: #FFF;
+    font-weight: bold;
+    font-size: 25px;
+    background-color: #428bca;
+    border: solid 1px #357ebd;
+    border-radius: 6px;
+    padding: 10px 15px 0 15px;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    text-decoration: none;
+    z-index: 2;
+    display: none;
+}
+
+    .scroll-top:hover,
+    .scroll-top:focus,
+    .scroll-top:active,
+    .scroll-top.active {
+        color: #FFF;
+        text-decoration: none;
+        background-color: #3276b1;
+        border-color: #285e8e;
+    }
+
+    .scroll-top.scroll-top-visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .scroll-top.scroll-top-faded {
+        opacity: .6;
+    }
+
+
+@media screen and (max-width:430px) {
+    .page-section .section-header a,
+    .page-section .section-header .badge {
+        display: none;
+    }
+}

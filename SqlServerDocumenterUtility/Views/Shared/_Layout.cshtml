@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Html.Partial("AppStyles")
+</head>
+<body data-ng-app="sqlDocumenterApp">
+    <div data-ng-controller="documenterPageController as page">
+        <div id="nancyPath" style="display: none !important;" data-ng-init="page.nancyPath='@ConfigHelper.GetNancyPath()'"></div>
+        <div id="appRoot" style="display: none !important;" data-ng-init="page.appRootPath='@ConfigHelper.GetAppRootPath()'"></div>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="page-scroll"><a class="navbar-brand" href="#default">Sql Server Utility</a></span>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="page-scroll"><a href="#about" data-url='@Url.Action("About", "Home", new { })'>About</a></li>
+                        <li class="page-scroll"><a href="#ipsum" data-url='@Url.Action("Ipsum", "Home", new { }) '>Lorem Ipsum</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="page-section" id="default">
+            <div class="container body-content">
+                <div class="row ng-cloak">
+                    <div class="col-md-5 custom-input-container">
+                        <span class="lbl-sm">Database:</span>
+                        <custom-dropdown data-items="page.databases"
+                                         data-text-path="name"
+                                         data-selected="page.connection"
+                                         data-text-caption="-- Select Database --"
+                                         data-css-class="custom-input-wide"></custom-dropdown>
+                        &nbsp;
+                        <label class="checkbox" data-ng-show="page.allowNancy">
+                            <input id="chkUseNancy" type="checkbox" data-ng-model="page.useNancy" />
+                            Use Nancy API?
+                        </label>
+                    </div>
+                    <div class="col-md-7 custom-input-container">
+                        <span class="lbl-sm">Table:</span>
+                        <div class="typeahead-wrapper custom-input-wide">
+                            <input type="text"
+                                   data-ng-model="page.table"
+                                   placeholder="Search for a Table..."
+                                   class="form-control"
+                                   data-typeahead-show-hint="true"
+                                   data-typeahead-min-length="0"
+                                   data-typeahead-editable="false"
+                                   data-uib-typeahead="table as (table.schemaName + '.' + table.tableName) for table in page.tables | filter:{tableName:$viewValue}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-section section">
+            <data-documenter table="page.table" connection="page.connection"></data-documenter>
+            @RenderBody()
+        </div>
+        <div class="lazy-load" id="about">
+        </div>
+        <div class="lazy-load" id="history">
+        </div>
+        <div class="lazy-load" id="ipsum">
+        </div>
+        <a href="#default" class="scroll-top">^</a>
+        <div id="markdownLocation" style="display:none !important;" data-url='@Url.Action("Readme", "Home", new { })'>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>@DateTime.Now.Year - Sql Server Utility</p>
+        </div>
+    </footer>
+    
+    @Html.Partial("AppScripts")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
