@@ -121,7 +121,7 @@ There are a couple things missing that hopefully, I'll circle back to that have 
 1. Unit Testing - Still need coverage of Web API, Nancy, & JS
 2. IOC Implemenation - Right now I'm using a manually method of dependency injection I've has success with before, but 
     would like to put in place a framework for it (this is going to be necessary for Nancy testing - currently favoring tinyIoC because integration into Nancy)
-3  Genericize DAL interaction - Put in a repository layer to allow implementation for other database types
+3. Genericize DAL interaction - Put in a repository layer to allow implementation for other database types
 4. [Content Negotiation](https://github.com/NancyFx/Nancy/wiki/Content-Negotiation) for Nancy
 5. User Input Validation - There is some around requiring fields and validation before and after data layer interaction, 
     but there is more that can be done (i.e. validation on the lenght of inputs for example)
