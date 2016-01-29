@@ -22,8 +22,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
     {
         private readonly ITableDal _tableDal;
         private readonly IColumnDal _columnDal;
-
-        //public DocumenterController() { }
+        
         public DocumenterController(ITableDal tableDal, IColumnDal columnDal)
         {
             _tableDal = tableDal;

@@ -23,7 +23,6 @@ namespace SqlServerDocumenterUtility.Controllers.Api
     {
         private readonly IExtendedPropertyDal _propertyDal;
 
-        //public ExtendedPropertyController() { }
         public ExtendedPropertyController(IExtendedPropertyDal propertyDal)
         {
             _propertyDal = propertyDal;
