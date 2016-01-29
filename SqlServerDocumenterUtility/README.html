@@ -19,9 +19,17 @@ off point for some experimentation. Some of the technologies/libraries/framework
 <li><a href="https://angular-ui.github.io/bootstrap/">Angular UI-Bootstrap</a></li>
 <li><a href="https://github.com/CodeSeven/toastr">Toastr</a></li>
 <li><a href="https://github.com/esvit/ng-table">ng-table</a></li>
+<li><a href="http://autofac.org/">Autofac</a></li>
+</ol>
+<h3>Stuff Done for Giggles</h3>
+<ol>
+<li>A dynamically shown scroll top button was put in place after the user scrolls past a certain point</li>
+<li>Clicking nav menu items uses jQuery to call the MVC controller to load html content and animates the scroll to the new section</li>
+<li>This Readme's compiled HTML is rendered for the About item</li>
+<li>The API used is swapable between ASP.NET Web API &amp; Nancy</li>
 </ol>
 <h3>Configuration of Database Connections</h3>
-<p>Within the web application's Database directory are 2 small .mdf files. In the web.configthe connection strings in the web.config
+<p>Within the web application's Database directory are 2 small .mdf files. In the web.config the connection strings in the web.config
 are configured like so:</p>
 <pre><code>&lt;add name=&quot;Sample 1&quot; connectionString=&quot;Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\sample.mdf;Integrated Security=True;Connect Timeout=30&quot;/&gt;
 
@@ -29,7 +37,7 @@ are configured like so:</p>
 </code></pre>
 <p>The connection string is setup to attempt to connect automatically to the mdf's, but there is one snag. The <code>|DataDirectory|</code> section 
 tells ASP.NET to look for the database in App_Data. They are in the Database folder because the App_Data folder doesn't want to commit, but that's
-okay, because we have to alter the connection anyway for Nancy. Within the 2 databases are a extremely small sampling of tables. 
+okay, because we have to alter the connection anyway for Nancy. Within the 2 databases are an extremely small sampling of tables. 
 Additional connection strings <strong>should</strong> be able to be added by simply adding them to the connectionStrings section. I say should 
 because I've, as of yet, been unable to just drop in an actual Sql Server database server's connection string to see what happens. </p>
 <p>In the next section I will go over what needs to be done in order for the connection to be setup to optionally use the Nancy API.</p>
@@ -69,7 +77,6 @@ communicate with both APIs. That said, there are things missing or that I would'
 <ul>
 <li>I would've liked to get the content negotiation setup to allow for me to play with the api a bit more directly</li>
 <li>Better model validation</li>
-<li>IOC implementation</li>
 </ul>
 <h3>Bundling and Minification Setup</h3>
 <p>Bundling and Minification is turned off by default in the web.config but can be turned on by changing 
@@ -100,15 +107,16 @@ MSBuild from &quot;completing&quot;.</p>
 <h3>What's Left to Do?</h3>
 <p>There are a couple things missing that hopefully, I'll circle back to that have this feeling a bit incomplete:</p>
 <ol>
-<li>Unit Testing - Still need coverage of Web API, Nancy, &amp; JS</li>
-<li>
-IOC Implemenation - Right now I'm using a manually method of dependency injection I've has success with before, but 
-would like to put in place a framework for it (this is going to be necessary for Nancy testing - currently favoring tinyIoC because integration into Nancy)
-</li>
-<li>Genericize DAL interaction - Put in a repository layer to allow implementation for other database types</li>
+<li>Unit Testing - Still want more coverage of Nancy and completely lacking Web API &amp; JS</li>
 <li><a href="https://github.com/NancyFx/Nancy/wiki/Content-Negotiation">Content Negotiation</a> for Nancy</li>
+<li>
+Validation
+<ul>
 <li>
 User Input Validation - There is some around requiring fields and validation before and after data layer interaction, 
 but there is more that can be done (i.e. validation on the lenght of inputs for example)
+</li>
+<li>Model Validation - Want to put in <a href="https://github.com/JeremySkinner/FluentValidation">Fluent Validation</a></li>
+</ul>
 </li>
 </ol>

@@ -1,4 +1,5 @@
 ﻿
+using Autofac.Integration.WebApi;
 using SqlServerDocumenterUtility.Data.Dals;
 using SqlServerDocumenterUtility.Models;
 using SqlServerDocumenterUtility.Models.Exceptions;
@@ -17,18 +18,16 @@ namespace SqlServerDocumenterUtility.Controllers.Api
     /// </summary>
     [RoutePrefix("api/property")]
     [Mvc.SessionState(SessionStateBehavior.Disabled)]
+    [AutofacControllerConfiguration]
     public class ExtendedPropertyController : ApiController
     {
-        #region Injectibles
+        private readonly IExtendedPropertyDal _propertyDal;
 
-        private IExtendedPropertyDal _propertyDal;
-        internal IExtendedPropertyDal PropertyDal
+        //public ExtendedPropertyController() { }
+        public ExtendedPropertyController(IExtendedPropertyDal propertyDal)
         {
-            get { return _propertyDal ?? (_propertyDal = new ExtendedPropertyDal()); }
-            set { _propertyDal = value; }
+            _propertyDal = propertyDal;
         }
-
-        #endregion
 
         /// <summary>
         /// Api Method for removing an extended property
@@ -47,7 +46,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
                 HttpRequires.IsNotNull(propertyModel, "Invalid Properties");
                 ValidatePropertyModel(propertyModel);
 
-                var response = PropertyDal.DeleteProperty(propertyModel, connectionString);
+                var response = _propertyDal.DeleteProperty(propertyModel, connectionString);
 
                 HttpAssert.Success(response);
                 return Ok();
@@ -79,7 +78,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
                 HttpRequires.IsNotNull(propertyModel, "Invalid Properties");
                 ValidatePropertyModel(propertyModel);
 
-                var response = PropertyDal.AddProperty(propertyModel, connectionString);
+                var response = _propertyDal.AddProperty(propertyModel, connectionString);
 
                 HttpAssert.Success(response);
                 return Ok();
@@ -119,20 +118,20 @@ namespace SqlServerDocumenterUtility.Controllers.Api
                 // we use a transaction scope.
                 using (var scope = new TransactionScope())
                 {
-                    deletionResponse = PropertyDal.DeleteProperty(propertyModel, connectionString);
-                    addResponse = PropertyDal.AddProperty(propertyModel, connectionString);
+                    deletionResponse = _propertyDal.DeleteProperty(propertyModel, connectionString);
+                    addResponse = _propertyDal.AddProperty(propertyModel, connectionString);
                     HttpAssert.Success(deletionResponse);
                     HttpAssert.Success(addResponse);
                     scope.Complete();
                 }
-                
+
                 return Ok();
             }
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
@@ -154,7 +153,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
                 HttpRequires.IsNotNull(connectionString, "Ivnalid Connection");
                 HttpRequires.IsTrue(tableId >= 0, "Invalid Table Id");
 
-                var response = PropertyDal.RetrieveByTableId(tableId, connectionString);
+                var response = _propertyDal.RetrieveByTableId(tableId, connectionString);
 
                 HttpAssert.Success(response);
                 HttpAssert.NotNull(response, "Unable to find property results for table");

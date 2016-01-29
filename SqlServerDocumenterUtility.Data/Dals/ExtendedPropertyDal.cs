@@ -12,24 +12,9 @@ namespace SqlServerDocumenterUtility.Data.Dals
     /// </summary>
     public class ExtendedPropertyDal : IExtendedPropertyDal
     {
-        #region Injectibles
-
-        private IExtendedPropertyModelMapper _modelMapper;
-        internal IExtendedPropertyModelMapper ModelMapper
-        {
-            private get { return _modelMapper ?? (_modelMapper = new ExtendedPropertyModelMapper()); }
-            set { _modelMapper = value; }
-        }
-
-        private IDalHelper _dalHelper;
-        internal IDalHelper DalHelper
-        {
-            private get { return _dalHelper ?? (_dalHelper = new DalHelper()); }
-            set { _dalHelper = value; }
-        }
-
-        #endregion
-
+        private readonly IExtendedPropertyModelMapper _modelMapper;
+        private readonly IDalHelper _dalHelper;
+        
         #region Sql command templates
 
         /// <summary>
@@ -120,6 +105,12 @@ namespace SqlServerDocumenterUtility.Data.Dals
 
         #endregion
 
+        public ExtendedPropertyDal(IExtendedPropertyModelMapper propertyModelMapper, IDalHelper dalHelper)
+        {
+            _modelMapper = propertyModelMapper;
+            _dalHelper = dalHelper;
+        }
+
         /// <summary>
         /// Method to add an extended property to a sql server database object
         /// </summary>
@@ -142,7 +133,7 @@ namespace SqlServerDocumenterUtility.Data.Dals
                         BuildColumnParam(model.ColumnName)
                     };
                     
-                    var result = DalHelper.Insert(new DalHelperModel
+                    var result = _dalHelper.Insert(new DalHelperModel
                     {
                         CommandText = SQL_TEMPLATE_ADD,
                         Connection = conn,
@@ -186,7 +177,7 @@ namespace SqlServerDocumenterUtility.Data.Dals
                         BuildColumnParam(model.ColumnName)
                     }; 
 
-                    DalHelper.Delete(new DalHelperModel
+                    _dalHelper.Delete(new DalHelperModel
                     {
                         CommandText = SQL_TEMPLATE_REMOVE,
                         Connection = conn,
@@ -218,12 +209,12 @@ namespace SqlServerDocumenterUtility.Data.Dals
             {
                 using (var conn = new SqlConnection(connectionString))
                 {
-                    var result = DalHelper.RetrieveList(new DalHelperModel<ExtendedPropertyModel>
+                    var result = _dalHelper.RetrieveList(new DalHelperModel<ExtendedPropertyModel>
                     {
                         CommandText = SQL_TEMPLATE_RETRIEVE_BY_OBJECT_ID,
                         Connection = conn,
                         Parameters = new List<SqlParameter> { new SqlParameter("@pObjectId", objectId.ToString())},
-                        Mapper = ModelMapper.Map
+                        Mapper = _modelMapper.Map
                     });
 
                     return new DalResponseModel<IList<ExtendedPropertyModel>>

@@ -21,14 +21,17 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
         [TestMethod]
         public void Map_Valid()
         {
+            //Arrange
             var mockReader = MockRepository.GenerateStub<IDataRecord>();
             mockReader.Stub(x => x["ObjectId"]).Return(1);
             mockReader.Stub(x => x["ObjectName"]).Return("Foobar");
             mockReader.Stub(x => x["SchemaId"]).Return(1);
             mockReader.Stub(x => x["SchemaName"]).Return("dbo");
 
+            //Act
             var tableModel = _mapper.Map(mockReader);
 
+            //Assert
             Assert.IsNotNull(tableModel);
             Assert.IsInstanceOfType(tableModel, typeof(TableModel));
         }
@@ -37,12 +40,14 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
         [ExpectedException(typeof(InvalidCastException))]
         public void Map_Invalid_ObjectId()
         {
+            //Arrange
             var mockReader = MockRepository.GenerateStub<IDataRecord>();
             mockReader.Stub(x => x["ObjectId"]).Return(DBNull.Value);
             mockReader.Stub(x => x["ObjectName"]).Return("Foobar");
             mockReader.Stub(x => x["SchemaId"]).Return(1);
             mockReader.Stub(x => x["SchemaName"]).Return("dbo");
 
+            //Act
             var tableModel = _mapper.Map(mockReader);
         }
 
@@ -50,12 +55,14 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
         [ExpectedException(typeof(InvalidCastException))]
         public void Map_Invalid_SchemaId()
         {
+            //Arrange
             var mockReader = MockRepository.GenerateStub<IDataRecord>();
             mockReader.Stub(x => x["ObjectId"]).Return(1);
             mockReader.Stub(x => x["ObjectName"]).Return("Foobar");
             mockReader.Stub(x => x["SchemaId"]).Return(DBNull.Value);
             mockReader.Stub(x => x["SchemaName"]).Return("dbo");
 
+            //Act
             var tableModel = _mapper.Map(mockReader);
         }
 

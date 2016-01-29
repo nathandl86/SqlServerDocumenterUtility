@@ -3,7 +3,6 @@ using SqlServerDocumenterUtility.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using TableMapperClass = SqlServerDocumenterUtility.Data.Mappers.TableMapper;
 
 namespace SqlServerDocumenterUtility.Data.Dals
 {
@@ -12,23 +11,8 @@ namespace SqlServerDocumenterUtility.Data.Dals
     /// </summary>
     public class TableDal : ITableDal
     {
-        #region Injectibles
-
-        private ITableMapper _tableMapper;
-        internal ITableMapper TableMapper
-        {
-            private get { return _tableMapper ?? (_tableMapper = new TableMapperClass()); }
-            set { _tableMapper = value; }
-        }
-
-        private IDalHelper _dalHelper;
-        internal IDalHelper DalHelper
-        {
-            private get { return _dalHelper ?? (_dalHelper = new DalHelper()); }
-            set { _dalHelper = value; }
-        }
-
-        #endregion
+        private readonly ITableMapper _tableMapper;
+        private readonly IDalHelper _dalHelper;
 
         #region Sql command templates
 
@@ -53,6 +37,12 @@ namespace SqlServerDocumenterUtility.Data.Dals
 
         #endregion
 
+        public TableDal(ITableMapper tableMapper, IDalHelper dalHelper)
+        {
+            _tableMapper = tableMapper;
+            _dalHelper = dalHelper;
+        }
+
         /// <summary>
         /// Method to get a collection of the tables available to add extended properties
         /// </summary>
@@ -64,11 +54,11 @@ namespace SqlServerDocumenterUtility.Data.Dals
             {
                 using (var conn = new SqlConnection(connectionString))
                 {
-                    var result = DalHelper.RetrieveList<TableModel>(new DalHelperModel<TableModel>
+                    var result = _dalHelper.RetrieveList<TableModel>(new DalHelperModel<TableModel>
                     {
                         CommandText = SQL_TEMPLATE_GET_TABLES,
                         Connection = conn,
-                        Mapper = TableMapper.Map
+                        Mapper = _tableMapper.Map
                     });
 
                     return new DalResponseModel<IList<TableModel>>

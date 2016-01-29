@@ -22,6 +22,7 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
         [TestMethod]
         public void Map_Valid()
         {
+            //Arrange
             var mockReader = MockRepository.GenerateStub<IDataRecord>();
             mockReader.Stub(x => x["ObjectId"]).Return(1);
             mockReader.Stub(x => x["TableName"]).Return("Foobar");
@@ -30,8 +31,10 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
             mockReader.Stub(x => x["ColumnId"]).Return(1);
             mockReader.Stub(x => x["ColumnName"]).Return("Fubar");
 
+            //Act
             var columnModel = _mapper.Map(mockReader);
 
+            //Assert
             Assert.IsNotNull(columnModel);
             Assert.IsInstanceOfType(columnModel, typeof(ColumnModel));
         }
@@ -40,6 +43,7 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
         [ExpectedException(typeof(InvalidCastException))]
         public void Map_Invalid_ObjectId()
         {
+            //Arrange
             var mockReader = MockRepository.GenerateStub<IDataRecord>();
             mockReader.Stub(x => x["ObjectId"]).Return(DBNull.Value);
             mockReader.Stub(x => x["TableName"]).Return("Foobar");
@@ -48,8 +52,10 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
             mockReader.Stub(x => x["ColumnId"]).Return(1);
             mockReader.Stub(x => x["ColumnName"]).Return("Fubar");
 
+            //Act
             var columnModel = _mapper.Map(mockReader);
 
+            //Assert
             Assert.IsNotNull(columnModel);
         }
 
@@ -57,6 +63,7 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
         [ExpectedException(typeof(InvalidCastException))]
         public void Map_Invalid_ColumnId()
         {
+            //Arrange
             var mockReader = MockRepository.GenerateStub<IDataRecord>();
             mockReader.Stub(x => x["ObjectId"]).Return(1);
             mockReader.Stub(x => x["TableName"]).Return("Foobar");
@@ -65,8 +72,10 @@ namespace SqlServerDocumenterUtility.Tests.Data.Mappers
             mockReader.Stub(x => x["ColumnId"]).Return(DBNull.Value);
             mockReader.Stub(x => x["ColumnName"]).Return("Fubar");
 
+            //Act
             var columnModel = _mapper.Map(mockReader);
 
+            //Assert
             Assert.IsNotNull(columnModel);
         }
     }

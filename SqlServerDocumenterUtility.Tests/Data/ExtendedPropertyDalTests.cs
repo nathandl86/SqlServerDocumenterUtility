@@ -2,6 +2,7 @@
 using Rhino.Mocks;
 using SqlServerDocumenterUtility.Data;
 using SqlServerDocumenterUtility.Data.Dals;
+using SqlServerDocumenterUtility.Data.Mappers;
 using SqlServerDocumenterUtility.Models;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,24 +12,26 @@ namespace SqlServerDocumenterUtility.Tests.Data
     [TestClass]
     public class ExtendedPropertyDalTests
     {
-        private ExtendedPropertyDal _extendedPropertyDal;
         private string _connectionString;
 
         [TestInitialize]
         public void Init()
         {
-            _extendedPropertyDal = new ExtendedPropertyDal();
             _connectionString = ConfigurationManager.ConnectionStrings["test"].ConnectionString;
         }
 
         [TestMethod]
         public void RetrieveByTableId()
         {
+            //Arrange
             var mockHelper = BuildMockDalHelper();
-            _extendedPropertyDal.DalHelper = mockHelper;
+            var mapperStub = MockRepository.GenerateStub<IExtendedPropertyModelMapper>();
+            var extendedPropertyDal = new ExtendedPropertyDal(mapperStub, mockHelper);
 
-            var dalResponse = _extendedPropertyDal.RetrieveByTableId(0, _connectionString);
+            //Act
+            var dalResponse = extendedPropertyDal.RetrieveByTableId(0, _connectionString);
 
+            //Assert
             Assert.IsFalse(dalResponse.HasError);
             Assert.IsNotNull(dalResponse.Result);
         }
@@ -36,25 +39,32 @@ namespace SqlServerDocumenterUtility.Tests.Data
         [TestMethod]
         public void DeleteProperty()
         {
+            //Arrange
             var mockHelper = BuildMockDalHelper();
-            _extendedPropertyDal.DalHelper = mockHelper;
             var modelStub = MockRepository.GenerateStub<ExtendedPropertyModel>();
-            
+            var mapperStub = MockRepository.GenerateStub<IExtendedPropertyModelMapper>();
+            var extendedPropertyDal = new ExtendedPropertyDal(mapperStub, mockHelper);
 
-            var dalResponse = _extendedPropertyDal.DeleteProperty(modelStub, _connectionString);
+            //Act
+            var dalResponse = extendedPropertyDal.DeleteProperty(modelStub, _connectionString);
 
+            //Assert
             Assert.IsFalse(dalResponse.HasError);
         }
 
         [TestMethod]
         public void AddProperty()
         {
+            //Arrange
             var mockHelper = BuildMockDalHelper();
-            _extendedPropertyDal.DalHelper = mockHelper;
             var modelStub = MockRepository.GenerateStub<ExtendedPropertyModel>();
+            var mapperStub = MockRepository.GenerateStub<IExtendedPropertyModelMapper>();
+            var extendedPropertyDal = new ExtendedPropertyDal(mapperStub, mockHelper);
 
-            var dalResponse = _extendedPropertyDal.AddProperty(modelStub, _connectionString);
+            //Act
+            var dalResponse = extendedPropertyDal.AddProperty(modelStub, _connectionString);
 
+            //Assert
             Assert.IsFalse(dalResponse.HasError);
             Assert.IsNotNull(dalResponse.Result);
             Assert.IsTrue(dalResponse.Result);
@@ -72,7 +82,7 @@ namespace SqlServerDocumenterUtility.Tests.Data
                 )).Return(new List<ExtendedPropertyModel>
                 {
                     new ExtendedPropertyModel()
-                });           
+                });
 
             return mockHelper;
         }

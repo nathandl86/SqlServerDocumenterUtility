@@ -12,23 +12,8 @@ namespace SqlServerDocumenterUtility.Data.Dals
     /// </summary>
     public class ColumnDal : IColumnDal
     {
-        #region Injectibles
-
-        private IColumnMapper _columnMapper;
-        internal IColumnMapper ColumnMapper
-        {
-            private get { return _columnMapper ?? (_columnMapper = new ColumnMapperClass()); }
-            set { _columnMapper = value; }
-        }
-
-        private IDalHelper _dalHelper;
-        internal IDalHelper DalHelper
-        {
-            private get { return _dalHelper ?? (_dalHelper = new DalHelper()); }
-            set { _dalHelper = value; }
-        }
-
-        #endregion
+        private readonly IColumnMapper _columnMapper;
+        private readonly IDalHelper _dalHelper;
 
         #region Sql command templates
 
@@ -55,6 +40,12 @@ namespace SqlServerDocumenterUtility.Data.Dals
 
         #endregion
 
+        public ColumnDal(IColumnMapper columnMapper, IDalHelper dalHelper)
+        {
+            _columnMapper = columnMapper;
+            _dalHelper = dalHelper;
+        }
+
         /// <summary>
         /// Method to get the columns for an object (table)
         /// </summary>
@@ -67,12 +58,12 @@ namespace SqlServerDocumenterUtility.Data.Dals
             {
                 using (var conn = new SqlConnection(connectionString))
                 {
-                    var result = DalHelper.RetrieveList<ColumnModel>(new DalHelperModel<ColumnModel>
+                    var result = _dalHelper.RetrieveList<ColumnModel>(new DalHelperModel<ColumnModel>
                     {
                         CommandText = SQL_TEMPLATE_GET_COLUMNS_BY_TABLE,
                         Connection = conn,
                         Parameters = new List<SqlParameter> { new SqlParameter("@pObjectId", objectId) },
-                        Mapper = ColumnMapper.Map
+                        Mapper = _columnMapper.Map
                     });
 
                     return new DalResponseModel<IList<ColumnModel>>

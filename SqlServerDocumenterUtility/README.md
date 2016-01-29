@@ -22,10 +22,17 @@ off point for some experimentation. Some of the technologies/libraries/framework
 7. [Angular UI-Bootstrap](https://angular-ui.github.io/bootstrap/)
 8. [Toastr](https://github.com/CodeSeven/toastr)
 9. [ng-table](https://github.com/esvit/ng-table)
+10. [Autofac](http://autofac.org/)
+
+### Stuff Done for Giggles 
+1. A dynamically shown scroll top button was put in place after the user scrolls past a certain point
+2. Clicking nav menu items uses jQuery to call the MVC controller to load html content and animates the scroll to the new section
+3. This Readme's compiled HTML is rendered for the About item
+4. The API used is swapable between ASP.NET Web API & Nancy
 
 ### Configuration of Database Connections
 
-Within the web application's Database directory are 2 small .mdf files. In the web.configthe connection strings in the web.config
+Within the web application's Database directory are 2 small .mdf files. In the web.config the connection strings in the web.config
 are configured like so:
 ```
 <add name="Sample 1" connectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\sample.mdf;Integrated Security=True;Connect Timeout=30"/>
@@ -35,7 +42,7 @@ are configured like so:
 
 The connection string is setup to attempt to connect automatically to the mdf's, but there is one snag. The `|DataDirectory|` section 
 tells ASP.NET to look for the database in App_Data. They are in the Database folder because the App_Data folder doesn't want to commit, but that's
-okay, because we have to alter the connection anyway for Nancy. Within the 2 databases are a extremely small sampling of tables. 
+okay, because we have to alter the connection anyway for Nancy. Within the 2 databases are an extremely small sampling of tables. 
 Additional connection strings **should** be able to be added by simply adding them to the connectionStrings section. I say should 
 because I've, as of yet, been unable to just drop in an actual Sql Server database server's connection string to see what happens. 
 
@@ -82,7 +89,6 @@ communicate with both APIs. That said, there are things missing or that I would'
 
 * I would've liked to get the content negotiation setup to allow for me to play with the api a bit more directly
 * Better model validation
-* IOC implementation
 
 ### Bundling and Minification Setup
 Bundling and Minification is turned off by default in the web.config but can be turned on by changing 
@@ -118,10 +124,9 @@ MSBuild from "completing".
 ### What's Left to Do?
 There are a couple things missing that hopefully, I'll circle back to that have this feeling a bit incomplete:
 
-1. Unit Testing - Still need coverage of Web API, Nancy, & JS
-2. IOC Implemenation - Right now I'm using a manually method of dependency injection I've has success with before, but 
-    would like to put in place a framework for it (this is going to be necessary for Nancy testing - currently favoring tinyIoC because integration into Nancy)
-3. Genericize DAL interaction - Put in a repository layer to allow implementation for other database types
-4. [Content Negotiation](https://github.com/NancyFx/Nancy/wiki/Content-Negotiation) for Nancy
-5. User Input Validation - There is some around requiring fields and validation before and after data layer interaction, 
-    but there is more that can be done (i.e. validation on the lenght of inputs for example)
+1. Unit Testing - Still want more coverage of Nancy and completely lacking Web API & JS
+2. [Content Negotiation](https://github.com/NancyFx/Nancy/wiki/Content-Negotiation) for Nancy
+3. Validation
+    - User Input Validation - There is some around requiring fields and validation before and after data layer interaction, 
+        but there is more that can be done (i.e. validation on the lenght of inputs for example)
+    - Model Validation - Want to put in [Fluent Validation](https://github.com/JeremySkinner/FluentValidation)

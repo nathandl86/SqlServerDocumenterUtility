@@ -15,26 +15,14 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
     /// </summary>
     public class DocumenterModule : NancyModule
     {
-        #region Injectibles
+        private readonly ITableDal _tableDal;
+        private readonly IColumnDal _columnDal;
 
-        private ITableDal _tableDal;
-        internal ITableDal TableDal
+        public DocumenterModule(ITableDal tableDal, IColumnDal columnDal) : base("/nancy")
         {
-            private get { return _tableDal ?? (_tableDal = new TableDal()); }
-            set { _tableDal = value; }
-        }
+            _tableDal = tableDal;
+            _columnDal = columnDal;
 
-        private IColumnDal _columnDal;
-        internal IColumnDal ColumnDal
-        {
-            private get { return _columnDal ?? (_columnDal = new ColumnDal()); }
-            set { _columnDal = value; }
-        }
-
-        #endregion
-
-        public DocumenterModule() : base("/nancy")
-        {
             Get["/"] = _ => "Hello World!";
 
             Get["/databases"] = _ => GetDatabases();
@@ -70,11 +58,12 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
         private List<TableModel> GetTables()
         {
             var connectionString = Request.Headers["connectionString"].FirstOrDefault();
-            connectionString = connectionString.Replace("|DataDirectory|", "..\\..\\SqlServerDocumenterUtility\\App_Data");
+            //connectionString = connectionString.Replace("|DataDirectory|", "..\\..\\SqlServerDocumenterUtility\\App_Data");
 
             HttpRequires.IsNotNull(connectionString, "Invalid connection");
 
-            var dalResp = TableDal.GetTables(connectionString);
+            //var dalResp = TableDal.GetTables(connectionString);
+            var dalResp = _tableDal.GetTables(connectionString);
 
             HttpAssert.Success(dalResp);
             HttpAssert.NotNull(dalResp, "Unable to find results for table");
@@ -94,7 +83,8 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
             HttpRequires.IsNotNull(connectionString, "Invalid Connection");
             HttpRequires.IsTrue(tableId > 0, "Invalid Table Id");
 
-            var dalResp = ColumnDal.GetColumns(tableId, connectionString);
+            //var dalResp = ColumnDal.GetColumns(tableId, connectionString);
+            var dalResp = _columnDal.GetColumns(tableId, connectionString);
 
             HttpAssert.Success(dalResp);
             HttpAssert.NotNull(dalResp, "Unable to find column results for table");

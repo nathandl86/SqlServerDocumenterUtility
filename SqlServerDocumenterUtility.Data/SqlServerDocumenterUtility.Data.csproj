@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +50,7 @@
     <Compile Include="Dals\IColumnDal.cs" />
     <Compile Include="Dals\IExtendedPropertyDal.cs" />
     <Compile Include="Dals\ITableDal.cs" />
+    <Compile Include="DataIocModule.cs" />
     <Compile Include="IDalHelper.cs" />
     <Compile Include="Mappers\ColumnMapper.cs" />
     <Compile Include="Mappers\ExtendedPropertyModelMapper.cs" />
@@ -61,6 +66,9 @@
       <Project>{ed80b57b-bf19-4cd9-94c2-5a6ba60d1045}</Project>
       <Name>SqlServerDocumenterUtility.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

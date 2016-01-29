@@ -15,20 +15,12 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
     /// </summary>
     public class PropertyModule : NancyModule
     {
-        #region Injectibles
-
         private IExtendedPropertyDal _propertyDal;
-        internal IExtendedPropertyDal PropertyDal
+        
+        public PropertyModule(IExtendedPropertyDal propertyDal) : base("nancy/property")
         {
-            get { return _propertyDal ?? (_propertyDal = new ExtendedPropertyDal()); }
-            set { _propertyDal = value; }
-        }
+            _propertyDal = propertyDal;
 
-        #endregion
-
-
-        public PropertyModule() : base("nancy/property")
-        {
             Get["/get/{tableId}"] = parameters => GetProperties(parameters.tableId);
             Post["/"] = _ => HttpStatusCode.MethodNotAllowed;
 
@@ -53,7 +45,7 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
                 return HttpStatusCode.OK;
             };
         }
-
+        
         /// <summary>
         /// Method to get the properties for a table (includes the properties for the 
         /// table's columns)
@@ -67,7 +59,7 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
             HttpRequires.IsNotNull(connectionString, "Ivnalid Connection");
             HttpRequires.IsTrue(tableId >= 0, "Invalid Table Id");
 
-            var dalResp = PropertyDal.RetrieveByTableId(tableId, connectionString);
+            var dalResp = _propertyDal.RetrieveByTableId(tableId, connectionString);
 
             HttpAssert.Success(dalResp);
             HttpAssert.NotNull(dalResp, "Unable to find property results for table");
@@ -85,7 +77,7 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
             HttpRequires.IsNotNull(connectionString, "Ivnalid Connection");
             HttpRequires.IsNotNull(model, "Invalid Properties");
 
-            var dalResponse = PropertyDal.DeleteProperty(model, connectionString);
+            var dalResponse = _propertyDal.DeleteProperty(model, connectionString);
             HttpAssert.Success(dalResponse);
         }
 
@@ -99,7 +91,7 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
             HttpRequires.IsNotNull(connectionString, "Invalid Connection");
             HttpRequires.IsNotNull(model, "Invalid Properties");
 
-            var response = PropertyDal.AddProperty(model, connectionString);
+            var response = _propertyDal.AddProperty(model, connectionString);
 
             HttpAssert.Success(response);
         }
@@ -120,8 +112,8 @@ namespace SqlServerDocumenterUtility.NancyApi.Modules
             // we use a transaction scope.
             using (var scope = new TransactionScope())
             {
-                var deleteResp = PropertyDal.DeleteProperty(model, connectionString);
-                var addResp = PropertyDal.AddProperty(model, connectionString);
+                var deleteResp = _propertyDal.DeleteProperty(model, connectionString);
+                var addResp = _propertyDal.AddProperty(model, connectionString);
                 HttpAssert.Success(deleteResp);
                 HttpAssert.Success(addResp);
                 scope.Complete();

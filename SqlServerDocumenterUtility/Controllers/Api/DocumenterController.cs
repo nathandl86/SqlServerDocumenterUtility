@@ -8,6 +8,7 @@ using SqlServerDocumenterUtility.Data.Dals;
 using SqlServerDocumenterUtility.Models;
 using System.Linq;
 using SqlServerDocumenterUtility.Models.Validation;
+using Autofac.Integration.WebApi;
 
 namespace SqlServerDocumenterUtility.Controllers.Api
 {
@@ -16,25 +17,19 @@ namespace SqlServerDocumenterUtility.Controllers.Api
     /// </summary>
     [RoutePrefix("api/documenter")]
     [Mvc.SessionState(SessionStateBehavior.Disabled)]
+    [AutofacControllerConfiguration]
     public class DocumenterController : ApiController
     {
-        #region Injectibles
+        private readonly ITableDal _tableDal;
+        private readonly IColumnDal _columnDal;
 
-        private ITableDal _tableDal;
-        internal ITableDal TableDal
+        //public DocumenterController() { }
+        public DocumenterController(ITableDal tableDal, IColumnDal columnDal)
         {
-            private get { return _tableDal ?? (_tableDal = new TableDal()); }
-            set { _tableDal = value; }
+            _tableDal = tableDal;
+            _columnDal = columnDal;
         }
 
-        private IColumnDal _columnDal;
-        internal IColumnDal ColumnDal
-        {
-            private get { return _columnDal ?? (_columnDal = new ColumnDal()); }
-            set { _columnDal = value; }
-        }
-
-        #endregion
 
         /// <summary>
         /// Api Method to retrieve a collection of the databases defined in the web.config
@@ -94,7 +89,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
 
                 HttpRequires.IsNotNull(connectionString, "Invalid connection");
 
-                var response = TableDal.GetTables(connectionString);
+                var response = _tableDal.GetTables(connectionString);
 
                 HttpAssert.Success(response);
                 HttpAssert.NotNull(response, "Unable to find results for table");                
@@ -122,7 +117,7 @@ namespace SqlServerDocumenterUtility.Controllers.Api
                 HttpRequires.IsNotNull(connectionString, "Invalid Connection");
                 HttpRequires.IsTrue(tableId > 0, "Invalid Table Id");
 
-                var response = ColumnDal.GetColumns(tableId, connectionString);
+                var response = _columnDal.GetColumns(tableId, connectionString);
 
                 HttpAssert.Success(response);
                 HttpAssert.NotNull(response, "Unable to find column results for table");               
